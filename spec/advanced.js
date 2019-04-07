@@ -19,6 +19,10 @@
 
     describe('invoke, when provided a function reference', function() {
 
+      checkForNativeMethods(function() {
+        _.invoke(['dog', 'cat'], _.identity);
+      });
+      
       it('runs the input function on each item in the array, and returns a list of results', function() {
         var reverse = function() {
           return this.split('').reverse().join('');
@@ -33,6 +37,10 @@
 
     describe('invoke, when provided a method name', function() {
 
+      checkForNativeMethods(function() {
+        _.invoke(['dog', 'cat'], 'toUpperCase');
+      });
+      
       it('runs the specified method on each item in the array, and returns a list of results', function() {
         var upperCasedStrings = _.invoke(['dog', 'cat'], 'toUpperCase');
 
@@ -42,6 +50,12 @@
 
     describe('sortBy', function() {
 
+      checkForNativeMethods(function() {
+        _.sortBy([{name: 'curly', age: 50}, {name: 'moe', age: 30}], function(person) {
+          return person.age;
+        });
+      });
+      
       it('should sort by age', function() {
         var people = [{name: 'curly', age: 50}, {name: 'moe', age: 30}];
         people = _.sortBy(people, function(person) {
@@ -93,6 +107,10 @@
 
     describe('flatten', function() {
 
+      checkForNativeMethods(function() {
+        _.flatten([1, [2], [3, [[[4]]]]]);
+      });
+      
       it('can flatten nested arrays', function() {
         var nestedArray = [1, [2], [3, [[[4]]]]];
 
@@ -102,6 +120,10 @@
 
     describe('zip', function() {
 
+      checkForNativeMethods(function() {
+        _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true]);
+      });
+      
       it('should zip together arrays of different lengths', function() {
         var names = ['moe', 'larry', 'curly'];
         var ages = [30, 40, 50];
@@ -117,6 +139,10 @@
 
     describe('intersection', function() {
 
+      checkForNativeMethods(function() {
+        _.intersection(['moe', 'curly', 'larry'], ['moe', 'groucho']);
+      });
+      
       it('should take the set intersection of two arrays', function() {
         var stooges = ['moe', 'curly', 'larry'];
         var leaders = ['moe', 'groucho'];
@@ -128,6 +154,10 @@
 
     describe('difference', function() {
 
+      checkForNativeMethods(function() {
+        _.difference([1, 2, 3], [2, 30, 40]);
+      });
+      
       it('should return the difference between two arrays', function() {
         var diff = _.difference([1, 2, 3], [2, 30, 40]);
 
@@ -150,6 +180,10 @@
       });
 
 
+      checkForNativeMethods(function() {
+        _.throttle(callback, 100);
+      });
+      
       it('should return a function callable twice in the first 200ms', function() {
         var fn = _.throttle(callback, 100);
         fn(); // called
