@@ -19,6 +19,10 @@
 
     describe('contains', function() {
 
+      checkForNativeMethods(function() {
+        _.contains([4, 5, 6], 2);
+      });
+      
       it('should not mutate the input array', function() {
         var input = [1, 2, 3, 4, 5];
         var result = _.contains(input, 4);
@@ -56,10 +60,11 @@
       });
 
       it('should return false given an array and a value not in that array', function() {
-        // Replace this line with an `expect` statement that tests
-        // the behavior described by the `it` string
-        throw new Error('This test is missing.');
-      });
+
+        var array = [1, 2, 3];
+        var value = 4;
+        expect(_.contains(array, value)).to.be.false;
+              });
 
       it('should return true given a object and a value from that object', function() {
         var object = { a: 1, b: 2, c: 3 };
@@ -80,6 +85,10 @@
       };
 
 
+      checkForNativeMethods(function() {
+        _.every([4, 5, 6], _.identity);
+      });
+      
       it('passes by default for an empty collection', function() {
         expect(_.every([], _.identity)).to.be.true;
       });
@@ -89,10 +98,9 @@
       });
 
       it('fails for a collection of all-falsy values', function() {
-        // Replace this line with an `expect` statement that tests
-        // the behavior described by the `it` string
-        throw new Error('This test is missing.');
-      });
+
+        expect(_.every([null, 0, undefined], _.identity)).to.be.false;
+              });
 
       it('fails for a collection containing mixed falsy and truthy values', function() {
         expect(_.every([true, false, 1], _.identity)).to.be.false;
@@ -126,6 +134,10 @@
       };
 
 
+      checkForNativeMethods(function() {
+        _.some([4, 5, 6], _.identity);
+      });
+      
       it('should fail by default for an empty collection', function() {
         expect(_.some([])).to.be.false;
       });
@@ -147,10 +159,9 @@
       });
 
       it('should fail for a set containing no matching values', function() {
-        // Replace this line with an `expect` statement that tests
-        // the behavior described by the `it` string
-        throw new Error('This test is missing.');
-      });
+
+        expect(_.some([1, 11, 29], isEven)).to.be.false;
+              });
 
       it('should pass for a collection containing one matching value', function() {
         expect(_.some([1, 10, 29], isEven)).to.be.true;
@@ -170,6 +181,10 @@
 
     describe('extend', function() {
 
+      checkForNativeMethods(function() {
+        _.extend({ a: 1 }, { b: 1 }, { c: 1 });
+      });
+      
       it('returns the first argument', function() {
         var destination = {};
         var source = {};
@@ -187,10 +202,13 @@
       });
 
       it('should override properties found on the destination', function() {
-        // Replace this line with an `expect` statement that tests
-        // the behavior described by the `it` string
-        throw new Error('This test is missing.');
-      });
+
+        var destination = { a: 'x' };
+        var source = { a: 'b' };
+        var extended = _.extend(destination, source);
+
+        expect(extended.a).to.equal('b');
+              });
 
       it('should not override properties not found in the source', function() {
         var destination = { x: 'x' };
@@ -215,6 +233,10 @@
 
     describe('defaults', function() {
 
+      checkForNativeMethods(function() {
+        _.defaults({ a: 1 }, { b: 1 }, { c: 1 });
+      });
+      
       it('should return the original target object', function() {
         /*
          * Our defaults function should only modify the contents of the original object,
@@ -265,10 +287,14 @@
       });
 
       it('should copy any property whose key is not already set on the target', function() {
-        // Replace this line with an `expect` statement that tests
-        // the behavior described by the `it` string
-        throw new Error('This test is missing.');
-      });
+
+        var destination = { a: 10 };
+        var source = { a: 1 };
+
+        _.defaults(destination, source);
+
+        expect(destination.a).to.equal(10);
+              });
 
       it('should not copy a property if that key is already set on the target', function() {
         var destination = { a: 10 };
@@ -339,6 +365,13 @@
 
     describe('once', function() {
 
+      checkForNativeMethods(function() {
+        var num = 0;
+        var increment = _.once(function() {
+          num += 1;
+        });
+      });
+      
       it('should return a function', function() {
         // noop is short for `no-operation` and is pronounced `no-op`
         var noop = _.once(function() {});
@@ -390,6 +423,12 @@
       });
 
 
+      checkForNativeMethods(function() {
+        _.memoize(function add(a, b) {
+          return a + b;
+        });
+      });
+      
       it('should produce the same result as the non-memoized version', function() {
         expect(add(1, 2)).to.equal(3);
         expect(memoAdd(1, 2)).to.equal(3);
@@ -445,6 +484,10 @@
       });
 
 
+      checkForNativeMethods(function() {
+        _.delay(callback, 100);
+      });
+      
       it('should only execute the function after the specified wait time', function() {
         _.delay(callback, 100);
         clock.tick(99);
@@ -466,6 +509,10 @@
 
     describe('shuffle', function() {
 
+      checkForNativeMethods(function() {
+        _.shuffle([1, 2, 3, 4]);
+      });
+      
       it('should not modify the original object', function() {
         var numbers = [4, 5, 6];
         var shuffled = _.shuffle(numbers).sort();
